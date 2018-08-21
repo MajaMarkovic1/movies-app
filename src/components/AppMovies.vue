@@ -5,8 +5,11 @@
 </template>
 
 <script>
+import { movies } from '../services/Movies'
+
 export default {
     name: 'AppMovies',
+
    
     
 }
