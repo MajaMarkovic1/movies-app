@@ -1,15 +1,18 @@
 <template>
     <div class="container">
-        
+        <MovieRow :movies="movies"/>
     </div>
 </template>
 
 <script>
+import MovieRow from './MovieRow'
 import { movies } from '../services/Movies'
 
 export default {
     name: 'AppMovies',
-
+    components: {
+        MovieRow
+    },
     data(){
         return {
             movies: []
@@ -19,9 +22,9 @@ export default {
     beforeRouteEnter(to, from, next){
         movies
         .getAll()
-        .then(response => {
+        .then(movies => {
             next((vm) => {
-                vm.movies = response.data
+                vm.movies = movies
             })
         })
         .catch(err => console.log(err))
