@@ -6,6 +6,7 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         </nav>
+        
     </div>
 </template>
 
@@ -13,9 +14,12 @@
 export default {
     data(){
         return {
-            movie: ''
+            movie: '',
+            
+            
         }
     },
+
     methods: {
         searchTermUpdated(movie){
             this.$emit('searchTermUpdated', this.movie)

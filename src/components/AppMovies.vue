@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <MovieSearch @searchTermUpdated="searchTermUpdated"/>
-        <MovieRow :movies="filteredMovies"/>
+        <MovieRow v-for="movie in filteredMovies" :key="movie.id" :movie="movie"/>
+        <div class="alert alert-warning" v-if="filteredMovies.length === 0">{{error}}</div>
     </div>
 </template>
 
@@ -20,7 +21,8 @@ export default {
     data(){
         return {
             movies: [],
-            title: ''
+            title: '',
+            error : 'The content you are looking for is not existing!'
         }
     },
 
@@ -39,6 +41,7 @@ export default {
         filteredMovies(){
             this.title = this.title.toLowerCase()
             return this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title) >= 0)
+            
         }
     },
 
@@ -46,6 +49,8 @@ export default {
         searchTermUpdated(title){
             //console.log(title)
             this.title = title
+           
+          
         }
     }
     
