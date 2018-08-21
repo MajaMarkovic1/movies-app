@@ -1,7 +1,12 @@
 <template>
     <div class="container">
         <MovieSearch @searchTermUpdated="searchTermUpdated"/>
-        <MovieRow v-for="movie in filteredMovies" :key="movie.id" :movie="movie"/>
+        <div>The number of selected movies is {{ count }}</div>
+        <MovieRow 
+            v-for="movie in filteredMovies" :key="movie.id" 
+            :movie="movie"
+            @select="select"
+            />
         <div class="alert alert-warning" v-if="filteredMovies.length === 0">{{error}}</div>
     </div>
 </template>
@@ -22,7 +27,8 @@ export default {
         return {
             movies: [],
             title: '',
-            error : 'The content you are looking for is not existing!'
+            error : 'The content you are looking for is not existing!',
+            count: 0
         }
     },
 
@@ -50,7 +56,12 @@ export default {
             //console.log(title)
             this.title = title
            
-          
+        },
+        select(movie){
+            this.count++
+            //console.log('movie is selected ' + this.count + 'times')
+            
+            console.log('movie selected is ' + movie.title)
         }
     }
     
