@@ -1,9 +1,14 @@
 <template>
     <div class="container">
         <MovieSearch @searchTermUpdated="searchTermUpdated"/>
-        <div>The number of selected movies is {{ count }}</div>
+        <!-- <div>The number of selected movies is {{ count }}</div> -->
         <button @click="selectAll()" class="btn btn-primary">Select all</button>
         <button @click="deselectAll()" class="btn btn-primary">Deselect all</button>
+        <button @click="sortByNameAsc()" class="btn btn-primary">Sort by Name asc</button>
+        <button @click="sortByNameDesc()" class="btn btn-primary">Sort by Name desc</button>
+        <button @click="sortByDurationAsc()" class="btn btn-primary">Sort by Duration asc</button>
+        <button @click="sortByDurationDesc()" class="btn btn-primary">Sort by Duration desc</button>
+        
         <MovieRow 
             v-for="movie in filteredMovies" :key="movie.id" 
             :movie="movie"
@@ -92,6 +97,48 @@ export default {
             this.selectedAll = false
             console.log(this.selectedMovies)  
             
+        },
+
+        sortByNameAsc(){
+            this.movies.sort(function(a, b){
+                let titleA = a.title.toLowerCase()
+                let titleB = b.title.toLowerCase()
+                if (titleA < titleB){
+                    return -1
+                }
+                if (titleA > titleB){
+                    return 1
+                }
+                return 0
+                
+            })
+        },
+
+        sortByNameDesc(){
+            this.movies.sort(function(a, b){
+                let titleA = a.title.toLowerCase()
+                let titleB = b.title.toLowerCase()
+                if (titleA < titleB){
+                    return 1
+                }
+                if (titleA > titleB){
+                    return -1
+                }
+                return 0
+                
+            })
+        },
+
+        sortByDurationAsc(){
+            this.movies.sort(function(a, b){
+                return a.releaseDate - b.releaseDate
+            })
+        },
+
+        sortByDurationDesc(){
+            this.movies.sort(function(a, b){
+                return b.releaseDate - a.releaseDate
+            })
         }
     }
     
