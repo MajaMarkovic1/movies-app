@@ -5,7 +5,9 @@
         <MovieRow 
             v-for="movie in filteredMovies" :key="movie.id" 
             :movie="movie"
+            
             @select="select"
+           :selected="selected"
             />
         <div class="alert alert-warning" v-if="filteredMovies.length === 0">{{error}}</div>
     </div>
@@ -23,12 +25,16 @@ export default {
         MovieSearch,
         MovieRow
     },
+  
     data(){
         return {
             movies: [],
             title: '',
             error : 'The content you are looking for is not existing!',
-            count: 0
+            count: 0,
+            selected: false,
+            selectedMovies: []
+            
         }
     },
 
@@ -48,7 +54,8 @@ export default {
             this.title = this.title.toLowerCase()
             return this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title) >= 0)
             
-        }
+        },
+
     },
 
     methods: {
@@ -58,10 +65,11 @@ export default {
            
         },
         select(movie){
-            this.count++
-            //console.log('movie is selected ' + this.count + 'times')
-            
-            console.log('movie selected is ' + movie.title)
+            this.count++    
+            this.selectedMovies.push(movie)
+            this.selected ? this.selected = false : this.selected = true      
+            console.log(this.selectedMovies)  
+            //console.log('movie selected is ' + movie.title)
         }
     }
     

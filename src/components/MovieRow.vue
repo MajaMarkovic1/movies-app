@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <button @click="select(movie)" class="btn btn-primary">Select</button>
-        <div >
+        <div :class="{ gray: selected }">
+            
             <li class="movie"><h1>{{ movie.title }}</h1></li>
             <li class="list-group-item"><em>Director:</em> {{ movie.director }}</li>
             <li class="list-group-item"><em>Image url:</em> {{ movie.imageUrl }}</li>
@@ -12,13 +13,19 @@
 </template>
 
 <script>
-export default {
 
+export default {
+   
     props: {
         movie: {
             type: Object,
-            required: true
+            required: true,
+        },
+        selected: {
+            type: Boolean
         }
+       
+    
     },
     methods: {
         select(movie){
@@ -32,6 +39,10 @@ export default {
 .movie {
     display: flex;
     justify-content: space-between;
+}
+
+.gray {
+    background-color: rgb(161, 153, 153);
 }
 
 </style>
