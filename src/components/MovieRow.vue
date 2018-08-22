@@ -2,7 +2,7 @@
     <div class="container">
         <div :class="{ gray: selected || selectedAll }">
             <li class="movieTitle">
-                <h1>{{ movie.title }}</h1>
+                <h2>{{ movie.title }}</h2>
                 <button @click="select(movie)" class="btn btn-primary">Select</button>
             </li>
             <li class="list-group-item"><em>Director:</em> {{ movie.director }}</li>

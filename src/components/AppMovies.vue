@@ -22,6 +22,7 @@
 </template>
 
 <script>
+
 import MovieRow from './MovieRow'
 import MovieSearch from './MovieSearch'
 
@@ -40,7 +41,8 @@ export default {
             error : 'The content you are looking for is not existing!',
             count: 0,
             selectedMovies: [],
-            selectedAll: false
+            selectedAll: false,
+         
             
         }
     },
@@ -84,16 +86,13 @@ export default {
         selectAll(){
             this.selectedMovies.splice(this.movies)            
             this.selectedMovies.push(this.movies)
-            this.count = this.selectedMovies[0].length
             this.selectedAll = true
             console.log(this.selectedMovies)  
             
         },
 
-        deselectAll(){
-            this.count = 0  
-            this.selectedMovies.splice(movies)            
-                      
+        deselectAll(){ 
+            this.selectedMovies.splice(movies)              
             this.selectedAll = false
             console.log(this.selectedMovies)  
             
@@ -101,47 +100,32 @@ export default {
 
         sortByNameAsc(){
             this.movies.sort(function(a, b){
-                let titleA = a.title.toLowerCase()
-                let titleB = b.title.toLowerCase()
-                if (titleA < titleB){
-                    return -1
-                }
-                if (titleA > titleB){
-                    return 1
-                }
-                return 0
+                return a.title > b.title
                 
             })
         },
 
         sortByNameDesc(){
             this.movies.sort(function(a, b){
-                let titleA = a.title.toLowerCase()
-                let titleB = b.title.toLowerCase()
-                if (titleA < titleB){
-                    return 1
-                }
-                if (titleA > titleB){
-                    return -1
-                }
-                return 0
+                return a.title < b.title
                 
             })
         },
 
         sortByDurationAsc(){
             this.movies.sort(function(a, b){
-                return a.releaseDate - b.releaseDate
+                return a.releaseDate > b.releaseDate
             })
         },
 
         sortByDurationDesc(){
             this.movies.sort(function(a, b){
-                return b.releaseDate - a.releaseDate
+                return b.releaseDate > a.releaseDate
             })
-        }
+        },
+
+        
     }
-    
    
     
 }
