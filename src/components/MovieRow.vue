@@ -1,9 +1,10 @@
 <template>
     <div class="container">
-        <button @click="select(movie)" class="btn btn-primary">Select</button>
-        <div :class="{ gray: selected }">
-            
-            <li class="movie"><h1>{{ movie.title }}</h1></li>
+        <div :class="{ gray: selected || selectedAll }">
+            <li class="movieTitle">
+                <h1>{{ movie.title }}</h1>
+                <button @click="select(movie)" class="btn btn-primary">Select</button>
+            </li>
             <li class="list-group-item"><em>Director:</em> {{ movie.director }}</li>
             <li class="list-group-item"><em>Image url:</em> {{ movie.imageUrl }}</li>
             <li class="list-group-item"><em>Release date:</em> {{ movie.releaseDate }}</li>
@@ -15,20 +16,23 @@
 <script>
 
 export default {
-   
+    data(){
+        return {
+            selected: false
+        }
+    },
     props: {
         movie: {
             type: Object,
             required: true,
         },
-        selected: {
+        selectedAll: {
             type: Boolean
         }
-       
-    
     },
     methods: {
         select(movie){
+            this.selected ? this.selected = false : this.selected = true  
             this.$emit('select', movie)
         }
     }
@@ -36,13 +40,13 @@ export default {
 </script>
 
 <style>
-.movie {
+.movieTitle {
     display: flex;
     justify-content: space-between;
 }
 
 .gray {
-    background-color: rgb(161, 153, 153);
+    background-color: gainsboro;
 }
 
 </style>
