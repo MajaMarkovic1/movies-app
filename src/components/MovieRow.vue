@@ -3,7 +3,7 @@
         <div :class="{ gray: selected || selectedAll }">
             <li class="movieTitle">
                 <h2>{{ movie.title }}</h2>
-                <button @click="select(movie)" class="btn btn-primary">Select</button>
+                <button @click.once="select(movie)" class="btn btn-primary">Select</button>
             </li>
             <li class="list-group-item"><em>Director:</em> {{ movie.director }}</li>
             <li class="list-group-item"><em>Image url:</em> {{ movie.imageUrl }}</li>

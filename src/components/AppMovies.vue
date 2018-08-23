@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <MovieSearch @searchTermUpdated="searchTermUpdated"/>
+        
+        <MovieSearch @searchTermUpdated="searchTermUpdated"/><br>
         <!-- <div>The number of selected movies is {{ count }}</div> -->
         <button @click="selectAll()" class="btn btn-primary">Select all</button>
         <button @click="deselectAll()" class="btn btn-primary">Deselect all</button>
@@ -14,9 +15,20 @@
             :movie="movie"
             @select="select"
             :selectedAll="selectedAll"
-            />
+            /><br>
         <div class="alert alert-warning" v-if="filteredMovies.length === 0">{{error}}</div>
-        
+       
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <button class="page-link"  @click="prevPage" :disabled="pageNumber <= 0">Previous</button>
+                </li>
+                <li class="page-item"><button class="page-link">{{ pageNumber }}</button></li>
+                <li class="page-item">
+                    <button class="page-link"  @click="nextPage" :disabled="pageNumber >= pageCount">Next</button>
+                </li>
+            </ul>
+        </nav>
         
     </div>
 </template>
@@ -42,7 +54,8 @@ export default {
             count: 0,
             selectedMovies: [],
             selectedAll: false,
-         
+            pageNumber: 0,
+            size: 5
             
         }
     },
@@ -60,9 +73,23 @@ export default {
     computed: {
         filteredMovies(){
             this.title = this.title.toLowerCase()
-            return this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title) >= 0)
+            let filteredMovies = this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title) >= 0)
+
+            const start = this.pageNumber * this.size
+            const end = start + this.size;
+            let f = filteredMovies.slice(start, end);
+            return f
+            
             
         },
+
+        pageCount(){
+            let l = this.movies.length
+            let  s = this.size;
+            return Math.floor(l/s);
+            
+        }
+
 
     },
 
@@ -76,25 +103,22 @@ export default {
             if (this.selectedMovies.includes(movie)){
                 return;
             }
-            this.count++    
-            this.selectedMovies.splice(this.movies)                        
-            this.selectedMovies.push(movie)
-            console.log(this.selectedMovies)  
-            
+            this.count++                           
+            this.selectedMovies.push(movie)  
+            console.log(this.selectedMovies)
         },
 
-        selectAll(){
-            this.selectedMovies.splice(this.movies)            
+        selectAll(){           
             this.selectedMovies.push(this.movies)
-            this.selectedAll = true
-            console.log(this.selectedMovies)  
+            this.selectedAll = true 
+            console.log(this.selectedMovies)
             
         },
 
         deselectAll(){ 
-            this.selectedMovies.splice(movies)              
-            this.selectedAll = false
-            console.log(this.selectedMovies)  
+            this.selectedMovies = []              
+            this.selectedAll = false 
+            console.log(this.selectedMovies)
             
         },
 
@@ -124,6 +148,13 @@ export default {
             })
         },
 
+        nextPage(){
+             this.pageNumber++ 
+        },
+
+        prevPage(){
+            this.pageNumber--;
+        }
         
     }
    
