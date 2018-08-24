@@ -2,7 +2,7 @@
     <div class="container">
         
         <MovieSearch @searchTermUpdated="searchTermUpdated"/><br>
-        <!-- <div>The number of selected movies is {{ count }}</div> -->
+        <div>The number of selected movies is {{ selectedCounter }}</div>
         <button @click="selectAll()" class="btn btn-primary">Select all</button>
         <button @click="deselectAll()" class="btn btn-primary">Deselect all</button>
         <button @click="sortByNameAsc()" class="btn btn-primary">Sort by Name asc</button>
@@ -14,7 +14,7 @@
             v-for="movie in filteredMovies" :key="movie.id" 
             :movie="movie"
             @select="select"
-            :selectedAll="selectedAll"
+            :selectedMovies="selectedMovies"
             /><br>
         <div class="alert alert-warning" v-if="filteredMovies.length === 0">{{error}}</div>
        
@@ -51,9 +51,7 @@ export default {
             movies: [],
             title: '',
             error : 'The content you are looking for is not existing!',
-            count: 0,
             selectedMovies: [],
-            selectedAll: false,
             pageNumber: 0,
             size: 5
             
@@ -80,7 +78,9 @@ export default {
             let f = filteredMovies.slice(start, end);
             return f
             
-            
+        },
+        selectedCounter(){
+            return this.selectedMovies.length
         },
 
         pageCount(){
@@ -100,24 +100,21 @@ export default {
            
         },
         select(movie){
-            if (this.selectedMovies.includes(movie)){
+            if (this.selectedMovies.includes(movie.id)){
                 return;
-            }
-            this.count++                           
-            this.selectedMovies.push(movie)  
+            }                        
+            this.selectedMovies.push(movie.id)  
             console.log(this.selectedMovies)
         },
 
         selectAll(){           
-            this.selectedMovies.push(this.movies)
-            this.selectedAll = true 
+            this.selectedMovies = this.movies.map(movie => movie.id)
             console.log(this.selectedMovies)
             
         },
 
         deselectAll(){ 
             this.selectedMovies = []              
-            this.selectedAll = false 
             console.log(this.selectedMovies)
             
         },

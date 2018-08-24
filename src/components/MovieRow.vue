@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <div :class="{ gray: selected || selectedAll }">
+        <div :class="{ gray: selected }">
             <li class="movieTitle">
                 <h2>{{ movie.title }}</h2>
-                <button @click.once="select(movie)" class="btn btn-primary">Select</button>
+                <button @click="select(movie)" class="btn btn-primary">Select</button>
             </li>
             <li class="list-group-item"><em>Director:</em> {{ movie.director }}</li>
             <li class="list-group-item"><em>Image url:</em> {{ movie.imageUrl }}</li>
@@ -16,24 +16,23 @@
 <script>
 
 export default {
-    data(){
-        return {
-            selected: false
-        }
-    },
     props: {
         movie: {
             type: Object,
             required: true,
         },
-        selectedAll: {
-            type: Boolean
+        selectedMovies: {
+            type: Array
+        }
+    },
+    computed: {
+        selected(){
+            return this.selectedMovies.indexOf(this.movie.id) >= 0
         }
     },
     methods: {
-        select(movie){
-            this.selected ? this.selected = false : this.selected = true  
-            this.$emit('select', movie)
+        select(){
+            this.$emit('select', this.movie)
         }
     }
 }
