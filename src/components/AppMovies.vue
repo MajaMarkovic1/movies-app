@@ -5,10 +5,10 @@
         <div>The number of selected movies is {{ selectedCounter }}</div>
         <button @click="selectAll()" class="btn btn-primary">Select all</button>
         <button @click="deselectAll()" class="btn btn-primary">Deselect all</button>
-        <button @click="sortByNameAsc()" class="btn btn-primary">Sort by Name asc</button>
-        <button @click="sortByNameDesc()" class="btn btn-primary">Sort by Name desc</button>
-        <button @click="sortByDurationAsc()" class="btn btn-primary">Sort by Duration asc</button>
-        <button @click="sortByDurationDesc()" class="btn btn-primary">Sort by Duration desc</button>
+        <button @click="sortMovies('title', 'asc')" class="btn btn-primary">Sort by Name asc</button>
+        <button @click="sortMovies('title', 'desc')" class="btn btn-primary">Sort by Name desc</button>
+        <button @click="sortMovies('releaseDate', 'asc')" class="btn btn-primary">Sort by Duration asc</button>
+        <button @click="sortMovies('releaseDate', 'desc')" class="btn btn-primary">Sort by Duration desc</button>
         
         <MovieRow 
             v-for="movie in visibleMovies" :key="movie.id"
@@ -111,29 +111,10 @@ export default {
             
         },
 
-        sortByNameAsc(){
-            this.movies.sort(function(a, b){
-                return a.title > b.title
-                
-            })
-        },
-
-        sortByNameDesc(){
-            this.movies.sort(function(a, b){
-                return a.title < b.title
-                
-            })
-        },
-
-        sortByDurationAsc(){
-            this.movies.sort(function(a, b){
-                return a.releaseDate > b.releaseDate
-            })
-        },
-
-        sortByDurationDesc(){
-            this.movies.sort(function(a, b){
-                return b.releaseDate > a.releaseDate
+        sortMovies(prop, order){
+            let orderCoefficient = order === 'asc' ? 1 : -1
+            this.movies = this.movies.sort(function(a,b){
+                return a[prop] >= b[prop] ? orderCoefficient : -orderCoefficient
             })
         },
         changePage(page){
