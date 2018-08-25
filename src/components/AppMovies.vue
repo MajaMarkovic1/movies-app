@@ -11,25 +11,18 @@
         <button @click="sortByDurationDesc()" class="btn btn-primary">Sort by Duration desc</button>
         
         <MovieRow 
-            v-for="movie in filteredMovies" :key="movie.id" 
+            v-for="movie in visibleMovies" :key="movie.id"
             :movie="movie"
             @select="select"
             :selectedMovies="selectedMovies"
             /><br>
+
         <div class="alert alert-warning" v-if="filteredMovies.length === 0">{{error}}</div>
-       
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <button class="page-link"  @click="prevPage" :disabled="pageNumber <= 0">Previous</button>
-                </li>
-                <li class="page-item"><button class="page-link">{{ pageNumber }}</button></li>
-                <li class="page-item">
-                    <button class="page-link"  @click="nextPage" :disabled="pageNumber >= pageCount">Next</button>
-                </li>
-            </ul>
-        </nav>
-        
+
+        <MoviePagination 
+            :pageNumber="pageNumber" 
+            :pageCount="pageCount" 
+            @changePage="changePage"/>
     </div>
 </template>
 
@@ -37,6 +30,7 @@
 
 import MovieRow from './MovieRow'
 import MovieSearch from './MovieSearch'
+import MoviePagination from './MoviePagination'
 
 import { movies } from '../services/Movies'
 
@@ -44,7 +38,8 @@ export default {
     name: 'AppMovies',
     components: {
         MovieSearch,
-        MovieRow
+        MovieRow,
+        MoviePagination
     },
     data(){
         return {
@@ -52,8 +47,7 @@ export default {
             title: '',
             error : 'The content you are looking for is not existing!',
             selectedMovies: [],
-            pageNumber: 0,
-            size: 5
+            pageNumber: 1,
             
         }
     },
@@ -71,12 +65,7 @@ export default {
     computed: {
         filteredMovies(){
             this.title = this.title.toLowerCase()
-            let filteredMovies = this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title) >= 0)
-
-            const start = this.pageNumber * this.size
-            const end = start + this.size;
-            let f = filteredMovies.slice(start, end);
-            return f
+            return this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title) >= 0)
             
         },
         selectedCounter(){
@@ -84,12 +73,15 @@ export default {
         },
 
         pageCount(){
-            let l = this.movies.length
-            let  s = this.size;
-            return Math.floor(l/s);
+            return Math.ceil(this.movies.length / 5);
             
-        }
+        },
 
+        visibleMovies(){
+            let bottomLimit = (this.pageNumber - 1) * 5
+            let topLimit = bottomLimit + 5
+            return this.filteredMovies.filter((movie, index) => index >= bottomLimit && index < topLimit)
+        },
 
     },
 
@@ -144,13 +136,8 @@ export default {
                 return b.releaseDate > a.releaseDate
             })
         },
-
-        nextPage(){
-             this.pageNumber++ 
-        },
-
-        prevPage(){
-            this.pageNumber--;
+        changePage(page){
+            this.pageNumber = page
         }
         
     }
