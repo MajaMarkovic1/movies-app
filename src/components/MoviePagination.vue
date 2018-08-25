@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container" v-if="movies.length > 0">
         <nav v-if="pageCount > 1" aria-label="Page navigation example" >
             <ul class="pagination">
                 <li class="page-item"

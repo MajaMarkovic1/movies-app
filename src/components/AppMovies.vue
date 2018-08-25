@@ -1,14 +1,23 @@
 <template>
     <div class="container">
-        
-        <MovieSearch @searchTermUpdated="searchTermUpdated"/><br>
-        <div>The number of selected movies is {{ selectedCounter }}</div>
-        <button @click="selectAll()" class="btn btn-primary">Select all</button>
-        <button @click="deselectAll()" class="btn btn-primary">Deselect all</button>
-        <button @click="sortMovies('title', 'asc')" class="btn btn-primary">Sort by Name asc</button>
-        <button @click="sortMovies('title', 'desc')" class="btn btn-primary">Sort by Name desc</button>
-        <button @click="sortMovies('releaseDate', 'asc')" class="btn btn-primary">Sort by Duration asc</button>
-        <button @click="sortMovies('releaseDate', 'desc')" class="btn btn-primary">Sort by Duration desc</button>
+        <div id="buttons">
+            <MovieSearch @searchTermUpdated="searchTermUpdated" /><br>
+            <div id="buttons">
+                <button @click="selectAll()" class="btn btn-warning">Select all</button>
+                <button @click="deselectAll()" class="btn btn-danger">Deselect all</button>
+                <div id="buttons" class="dropdown">
+                    <button class="btn btn-success">Sort</button>
+                    <div class="dropdown-content">
+                        <a class="dropdown-item" @click="sortMovies('title', 'asc')">Sort by Name asc</a>
+                        <a class="dropdown-item" @click="sortMovies('title', 'desc')">Sort by Name desc</a>
+                        <a class="dropdown-item" @click="sortMovies('releaseDate', 'asc')">Sort by Duration asc</a>
+                        <a class="dropdown-item" @click="sortMovies('releaseDate', 'desc')">Sort by Duration desc</a>
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <div>Selected: {{ selectedCounter }}</div>
         
         <MovieRow 
             v-for="movie in visibleMovies" :key="movie.id"
@@ -23,6 +32,7 @@
             :pageNumber="pageNumber" 
             :pageCount="pageCount" 
             @changePage="changePage"/>
+
     </div>
 </template>
 
@@ -135,6 +145,29 @@ export default {
 button {
     margin-right: 0.5rem;
 }
+
+#buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
 </style>
 
 

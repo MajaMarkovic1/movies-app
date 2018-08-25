@@ -48,6 +48,10 @@ export default {
     background-color: gainsboro;
 }
 
+.container {
+    width: 80%;
+}
+
 </style>
 
 
