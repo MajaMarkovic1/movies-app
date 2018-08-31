@@ -1,14 +1,14 @@
 <template>
     <div class="container">
         <div :class="{ gray: selected }">
-            <li class="movieTitle">
+            <div class="movieTitle">
                 <h2>{{ movie.title }}</h2>
                 <button @click="select(movie)" class="btn btn-primary">Select</button>
-            </li>
-            <li class="list-group-item"><em>Director:</em> {{ movie.director }}</li>
-            <li class="list-group-item"><em>Image url:</em> {{ movie.imageUrl }}</li>
-            <li class="list-group-item"><em>Release date:</em> {{ movie.releaseDate }}</li>
-            <li class="list-group-item"><em>Genre:</em> {{ movie.genre }}</li>
+            </div>
+            <div><em>Director:</em> {{ movie.director }}</div>
+            <div><img :src="movie.imageUrl" alt="Image"></div>
+            <div><em>Release date:</em> {{ movie.releaseDate }}</div>
+            <div><em>Genre:</em> {{ movie.genre }}</div>
         </div>
     </div>
 </template>
