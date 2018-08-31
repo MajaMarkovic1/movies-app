@@ -5,7 +5,10 @@
                 class="navbar-brand" 
                 to="/movies">Movies
             </router-link>
-           
+           <router-link 
+                class="navbar-brand" 
+                to="/add">Add
+            </router-link>
         </nav>
     </div>
 </template>
