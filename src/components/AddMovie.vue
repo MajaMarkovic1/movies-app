@@ -12,6 +12,7 @@
                         class="form-control here"
                         v-model="movie.title">
                     </div>
+                    <span class="alert alert-warning" v-if="errors.title">{{ errors.title[0] }}</span>
                 </div>
             </div>
             <div class="form-group row">
@@ -25,6 +26,8 @@
                         class="form-control here"
                         v-model="movie.director">
                     </div>
+                    <span class="alert alert-warning" v-if="errors.director">{{ errors.director[0] }}</span>
+                    
                 </div>
             </div>
             <div class="form-group row">
@@ -38,6 +41,8 @@
                         class="form-control here"
                         v-model="movie.imageUrl">
                     </div>
+                    <span class="alert alert-warning" v-if="errors.imageUrl">{{ errors.imageUrl[0] }}</span>
+                    
                 </div>
             </div>
             <div class="form-group row">
@@ -51,6 +56,7 @@
                         class="form-control here"
                         v-model="movie.releaseDate">
                     </div>
+                    <span class="alert alert-warning" v-if="errors.releaseDate">{{ errors.releaseDate[0] }}</span>
                 </div>
             </div>
             <div class="form-group row">
@@ -77,6 +83,8 @@
                         class="form-control here"
                         v-model="movie.duration">
                     </div>
+                    <span class="alert alert-warning" v-if="errors.duration">{{ errors.duration[0] }}</span>
+                    
                 </div>
             </div>
             <button name="submit" class="btn btn-primary" type="submit">Add</button>
@@ -91,6 +99,7 @@ export default {
     data(){
         return {
             movie: {},
+            errors: []
         }
     },
 
@@ -100,7 +109,7 @@ export default {
             .then((response) => {
                 this.$router.push('/movies')
             })
-            .catch(err => console.log(err.response.data) )
+            .catch(err => console.log(this.errors = err.response.data.errors) )
         }
     }
     

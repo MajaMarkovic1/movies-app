@@ -5,7 +5,7 @@
             <div id="buttons">
                 <button @click="selectAll()" class="btn btn-warning">Select all</button>
                 <button @click="deselectAll()" class="btn btn-danger">Deselect all</button>
-                <div id="buttons" class="dropdown">
+                <div class="dropdown">
                     <button class="btn btn-success">Sort</button>
                     <div class="dropdown-content">
                         <a class="dropdown-item" @click="sortMovies('title', 'asc')">Sort by Name asc</a>
@@ -58,7 +58,7 @@ export default {
             error : 'The content you are looking for is not existing!',
             selectedMovies: [],
             pageNumber: 1,
-            
+           
         }
     },
     beforeRouteEnter(to, from, next){
@@ -144,11 +144,6 @@ export default {
 
 button {
     margin-right: 0.5rem;
-}
-
-#buttons {
-    display: flex;
-    justify-content: space-between;
 }
 
 .dropdown {

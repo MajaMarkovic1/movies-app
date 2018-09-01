@@ -12,7 +12,7 @@ export default new Router ({
     routes: [
         {path: '/', redirect: 'movies'},
         {path: '/movies', component: AppMovies },
-        {path: '/add', component: AddMovie },
+        {path: '/add', component: AddMovie},
         
         
     ]

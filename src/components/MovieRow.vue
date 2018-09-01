@@ -1,10 +1,8 @@
 <template>
     <div class="container">
         <div :class="{ gray: selected }">
-            <div class="movieTitle">
-                <h2>{{ movie.title }}</h2>
-                <button @click="select(movie)" class="btn btn-primary">Select</button>
-            </div>
+            <button @click="select(movie)" class="btn btn-primary">Select</button>            
+            <h2>{{ movie.title }}</h2>
             <div><em>Director:</em> {{ movie.director }}</div>
             <div><img :src="movie.imageUrl" alt="Image"></div>
             <div><em>Release date:</em> {{ movie.releaseDate }}</div>
@@ -39,10 +37,6 @@ export default {
 </script>
 
 <style>
-.movieTitle {
-    display: flex;
-    justify-content: space-between;
-}
 
 .gray {
     background-color: gainsboro;
@@ -50,6 +44,11 @@ export default {
 
 .container {
     width: 80%;
+}
+
+img {
+    width: 640px;
+    height: 480px;
 }
 
 </style>
