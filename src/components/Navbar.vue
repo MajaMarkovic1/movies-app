@@ -31,7 +31,7 @@ export default {
     methods: {
         logout(){
             authService.logout()
-            this.$emit('userAuthenticated')
+            this.$emit('userAuthenticated', false)
             this.$router.push('/login')
         }
     }

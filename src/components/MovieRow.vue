@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <div :class="{ gray: selected }">
+        <div>
             <button @click="select(movie)" class="btn btn-primary">Select</button>            
-            <h2>{{ movie.title }}</h2>
+            <h2  :class="{ gray: selected }">{{ movie.title }}</h2>
             <div><em>Director:</em> {{ movie.director }}</div>
             <div><img :src="movie.imageUrl" alt="Image"></div>
             <div><em>Release date:</em> {{ movie.releaseDate }}</div>

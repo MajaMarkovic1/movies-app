@@ -28,6 +28,8 @@ export default {
   methods: {
     toggleAuthenticated(value){
       this.isAuthenticated = value
+      console.log(this.isAuthenticated)
+      
     }
   }
 }
