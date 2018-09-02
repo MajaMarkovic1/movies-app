@@ -1,20 +1,34 @@
 <template>
   <div>
-    <Navbar />
-    <router-view />
+    <Navbar :isAuthenticated="isAuthenticated" @userAuthenticated="toggleAuthenticated"/>
+    <router-view @userAuthenticated="toggleAuthenticated"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import Navbar from './components/Navbar.vue'
+import { authService } from './services/Auth';
 
 
 export default {
   name: 'app',
+
+  data(){
+    return {
+      isAuthenticated: authService.isAuthenticated()
+    }
+  },
+
   components: {
     HelloWorld,
     Navbar
+  },
+
+  methods: {
+    toggleAuthenticated(value){
+      this.isAuthenticated = value
+    }
   }
 }
 </script>
