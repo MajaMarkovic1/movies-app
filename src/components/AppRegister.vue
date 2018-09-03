@@ -12,6 +12,7 @@
                         class="form-control here"
                         v-model="user.name">
                     </div>
+                    <span class="alert alert-warning" v-if="errors.name">{{ errors.name[0] }}</span>                     
                 </div>
             </div>
             <div class="form-group row">
@@ -25,6 +26,7 @@
                         class="form-control here"
                         v-model="user.email">
                     </div>
+                    <span class="alert alert-warning" v-if="errors.email">{{ errors.email[0] }}</span> 
                 </div>
             </div>
             <div class="form-group row">
@@ -37,8 +39,22 @@
                         type="password"
                         class="form-control here"
                         v-model="user.password">
-                    </div>
-                    <span class="alert alert-warning" v-if="error">{{ error }}</span>                    
+                    </div>  
+                <span class="alert alert-warning" v-if="errors.password">{{ errors.password[0] }}</span>
+                                     
+                </div>
+            </div>
+             <div class="form-group row">
+                <label for="password" class="col-4 col-form-label">Confirm password</label>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        class="form-control here"
+                        v-model="confirmPassword">
+                    </div>                     
                 </div>
             </div>
             <button name="submit" class="btn btn-primary" type="submit">Register</button>
@@ -53,18 +69,25 @@ export default {
     data(){
         return {
             user: {},
-            error: ''
+            errors: [],
+            confirmPassword: ''
         }
     },
 
     methods: {
         onSubmit(){
-            authService.add(this.user)
+
+            if (this.confirmPassword !== this.user.password){
+                return;
+            }
+            
+            authService.register(this.user)
                 .then((response) => {
-                    this.$router.push('/login')
+                    
+                     this.$router.push('/login')
                 })
                 .catch((err) => {
-                    console.log(this.error = err.response.data.message)
+                    console.log(this.errors = err.response.data.errors)
                 })
         }
     }

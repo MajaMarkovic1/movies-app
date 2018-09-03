@@ -4,6 +4,7 @@ export default class Auth{
 
     constructor(){
         axios.defaults.baseURL = 'http://localhost:8000/api/'
+        this.setAuthorizationHeader()
     }
 
     isAuthenticated(){
@@ -28,8 +29,8 @@ export default class Auth{
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
 
-    add(user){
-        return axios.post('users', user)
+    register(user){
+        return axios.post('auth/register', user)
     }
 }
 
