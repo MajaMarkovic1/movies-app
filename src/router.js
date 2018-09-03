@@ -13,8 +13,8 @@ export default new Router ({
     mode: 'history',
     routes: [
         {path: '/', redirect: 'movies'},
-        {path: '/movies', component: AppMovies, name: 'movies' },
-        {path: '/add', component: AddMovie},
+        {path: '/movies', component: AppMovies, name: 'movies', requiresAuth: true },
+        {path: '/add', component: AddMovie, requiresAuth: true},
         {path: '/login', component: AppLogin, name: 'login'},
         {path: '/register', component: AppRegister, name: 'register'},
             
