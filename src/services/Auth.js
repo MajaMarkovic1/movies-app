@@ -27,6 +27,10 @@ export default class Auth{
         const token = localStorage.getItem('token')
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
+
+    add(user){
+        return axios.post('users', user)
+    }
 }
 
 export const authService = new Auth();

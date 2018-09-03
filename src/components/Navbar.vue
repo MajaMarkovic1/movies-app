@@ -15,6 +15,11 @@
                 to="/login">Login
             </router-link>
             <a href="#" v-if="isAuthenticated" class="navbar-brand" @click="logout">Logout</a>
+            <router-link 
+                v-if="!isAuthenticated"
+                class="navbar-brand" 
+                to="/register">Register
+            </router-link>
         </nav>
     </div>
 </template>
