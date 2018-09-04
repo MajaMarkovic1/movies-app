@@ -40,12 +40,11 @@
                         class="form-control here"
                         v-model="user.password">
                     </div>  
-                <span class="alert alert-warning" v-if="errors.password">{{ errors.password[0] }}</span>
-                                     
+                    <span class="alert alert-warning" v-if="errors.password">{{ errors.password[0] }}</span>                
                 </div>
             </div>
              <div class="form-group row">
-                <label for="password" class="col-4 col-form-label">Confirm password</label>
+                <label for="confirmPassword" class="col-4 col-form-label">Confirm password</label>
                 <div class="col-8">
                     <div class="input-group">
                         <input
