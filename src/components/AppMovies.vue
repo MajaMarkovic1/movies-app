@@ -83,13 +83,13 @@ export default {
         },
 
         pageCount(){
-            return Math.ceil(this.movies.length / 5);
+            return Math.ceil(this.movies.length / 10);
             
         },
 
         visibleMovies(){
-            let bottomLimit = (this.pageNumber - 1) * 5
-            let topLimit = bottomLimit + 5
+            let bottomLimit = (this.pageNumber - 1) * 10
+            let topLimit = bottomLimit + 10
             return this.filteredMovies.filter((movie, index) => index >= bottomLimit && index < topLimit)
         },
 
@@ -155,7 +155,7 @@ button {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    min-width: 160px;
+    min-width: 180px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }

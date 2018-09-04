@@ -1,12 +1,14 @@
 <template>
     <div class="container">
-        <div>
-            <button @click="select(movie)" class="btn btn-primary">Select</button>            
-            <h2  :class="{ gray: selected }">{{ movie.title }}</h2>
-            <div><em>Director:</em> {{ movie.director }}</div>
-            <div><img :src="movie.imageUrl" alt="Image"></div>
-            <div><em>Release date:</em> {{ movie.releaseDate }}</div>
-            <div><em>Genre:</em> {{ movie.genre }}</div>
+        <div class="movies" :class="{ gray: selected }">
+            <h5 >{{ movie.title }}</h5>        
+            <div>
+                <button @click="select(movie)" class="btn btn-primary">Select</button>  
+                <router-link 
+                    class="btn btn-success"
+                    :to="{ name: 'single-movie', params: {id: movie.id}}">View movie
+                </router-link> 
+            </div>          
         </div>
     </div>
 </template>
@@ -42,15 +44,19 @@ export default {
     background-color: gainsboro;
 }
 
-.container {
-    width: 80%;
-}
-
 img {
     width: 640px;
     height: 480px;
 }
 
+.movies {
+    display: flex;
+    justify-content: space-between;
+}
+
+h5 {
+    color: gray;
+}
 </style>
 
 

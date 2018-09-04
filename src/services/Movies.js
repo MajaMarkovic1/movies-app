@@ -16,6 +16,10 @@ export default class Movies {
         return axios.post('movies', movie)
     }
 
+    get(id){
+        return axios.get(`movies/${id}`)
+    }
+
 
 }
 
