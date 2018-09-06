@@ -62,14 +62,28 @@ export default {
         }
     },
     beforeRouteEnter(to, from, next){
-        movies
-        .getAll()
-        .then(movies => {
-            next((vm) => {
-                vm.movies = movies
+        if (to.query.take){
+            movies
+            .gett(to.query.take)
+            .then(response => {
+                next((vm) => {
+                    vm.movies = response.data.slice(0, to.query.take)
+                })
             })
-        })
-        .catch(err => console.log(err))
+            .catch(err => console.log(err))
+
+        } else {
+
+            movies
+            .getAll()
+            .then(movies => {
+                next((vm) => {
+                    vm.movies = movies
+                })
+            })
+            .catch(err => console.log(err))
+        }
+       
     },
 
     computed: {

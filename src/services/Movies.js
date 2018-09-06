@@ -20,6 +20,9 @@ export default class Movies {
         return axios.get(`movies/${id}`)
     }
 
+    gett(take){
+        return axios.get(`movies?take=${take}`)
+    }
 
 }
 
